@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>OSCAR Icon System — Preview</title>
+<style>
+  :root {
+    --icon-size-xs: 12px;
+    --icon-size-sm: 16px;
+    --icon-size-md: 20px;
+    --icon-size-lg: 24px;
+    --icon-size-xl: 32px;
+
+    --icon-color-default:  #637087;
+    --icon-color-muted:    #AEB6C2;
+    --icon-color-brand:    #0076E1;
+    --icon-color-success:  #24A06C;
+    --icon-color-warning:  #F5CC00;
+    --icon-color-danger:   #F55826;
+    --icon-color-disabled: #C8CDD5;
+    --icon-color-on-dark:  #FFFFFF;
+
+    --icon-gap-sm: 4px;
+    --icon-gap-md: 8px;
+    --icon-gap-lg: 12px;
+
+    --ink: #1A2233;
+    --ink-muted: #637087;
+    --border: #E4E7EC;
+    --bg-page: #F7F8FA;
+    --bg-card: #FFFFFF;
+    --dark-bg: #14181F;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg-page);
+    color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    padding: 32px 40px 64px;
+  }
+
+  h1 { font-size: 22px; font-weight: 700; margin: 0 0 4px; }
+  .subtitle { color: var(--ink-muted); font-size: 14px; margin: 0 0 32px; }
+
+  section { margin-bottom: 40px; }
+  h2 {
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--ink-muted);
+    margin: 0 0 14px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px 24px;
+  }
+
+  /* ---- Size scale ---- */
+  .size-row {
+    display: flex;
+    align-items: flex-end;
+    gap: 40px;
+    flex-wrap: wrap;
+  }
+  .size-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+  .size-item .swatch {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 48px;
+  }
+  .size-item .label {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--ink);
+  }
+  .size-item .token {
+    font-size: 11px;
+    font-family: "SF Mono", Menlo, Consolas, monospace;
+    color: var(--ink-muted);
+  }
+
+  /* ---- Color grid ---- */
+  .color-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 14px;
+  }
+  .color-cell {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+  }
+  .color-cell.on-dark {
+    background: var(--dark-bg);
+    border-color: var(--dark-bg);
+  }
+  .color-cell .swatch-icon {
+    flex: none;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .color-cell .meta { min-width: 0; }
+  .color-cell .name {
+    font-size: 12.5px;
+    font-weight: 600;
+    color: var(--ink);
+  }
+  .color-cell.on-dark .name { color: #fff; }
+  .color-cell .token {
+    font-size: 11px;
+    font-family: "SF Mono", Menlo, Consolas, monospace;
+    color: var(--ink-muted);
+  }
+  .color-cell.on-dark .token { color: #9AA3B2; }
+  .color-cell .hex {
+    font-size: 11px;
+    font-family: "SF Mono", Menlo, Consolas, monospace;
+    color: #B0B7C3;
+    margin-left: auto;
+  }
+
+  /* ---- Spacing / gap examples ---- */
+  .gap-row {
+    display: flex;
+    gap: 28px;
+    flex-wrap: wrap;
+  }
+  .gap-item {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .gap-pill {
+    display: inline-flex;
+    align-items: center;
+    background: #F0F4FA;
+    border: 1px solid #DCE5F0;
+    border-radius: 8px;
+    padding: 8px 14px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--ink);
+  }
+  .gap-pill svg { flex: none; color: var(--icon-color-brand); }
+  .gap-item .token {
+    font-size: 11px;
+    font-family: "SF Mono", Menlo, Consolas, monospace;
+    color: var(--ink-muted);
+  }
+
+  /* ---- Context examples ---- */
+  .context-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+  }
+  .context-card {
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px;
+  }
+  .context-card .ctx-label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    color: var(--ink-muted);
+    margin-bottom: 12px;
+  }
+  .btn-demo {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--icon-gap-md);
+    background: var(--icon-color-brand);
+    color: #fff;
+    border-radius: 8px;
+    padding: 0 16px;
+    height: 40px;
+    font-size: 14px;
+    font-weight: 600;
+  }
+  .btn-demo svg { color: #fff; flex: none; }
+  .nav-demo {
+    display: flex;
+    align-items: center;
+    gap: var(--icon-gap-md);
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--icon-color-brand);
+  }
+  .nav-demo svg { color: var(--icon-color-brand); flex: none; }
+  .tag-demo {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--icon-gap-sm);
+    background: #FDECEA;
+    color: #B3401D;
+    border-radius: 999px;
+    padding: 3px 10px 3px 8px;
+    font-size: 12px;
+    font-weight: 600;
+  }
+  .tag-demo svg { color: var(--icon-color-danger); flex: none; }
+  .empty-demo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    color: var(--ink-muted);
+    font-size: 12.5px;
+    padding: 8px 0;
+  }
+  .empty-demo svg { color: var(--icon-color-muted); }
+
+  footer {
+    margin-top: 8px;
+    font-size: 12px;
+    color: var(--ink-muted);
+  }
+  footer code {
+    background: #EEF1F5;
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-family: "SF Mono", Menlo, Consolas, monospace;
+  }
+</style>
+</head>
+<body>
+
+  <h1>OSCAR Icon System</h1>
+  <p class="subtitle">Size, colour, and spacing tokens — <code>references/components-icons.md</code>. Star glyph used as a stand-in; the Custom Icon Registry in that file is still a placeholder, so swap in your real icon set once registered.</p>
+
+  <!-- SIZE SCALE -->
+  <section>
+    <h2>Icon Size Scale</h2>
+    <div class="card">
+      <div class="size-row" id="size-row"></div>
+    </div>
+  </section>
+
+  <!-- COLOR TOKENS -->
+  <section>
+    <h2>Icon Colour Tokens</h2>
+    <div class="card">
+      <div class="color-grid" id="color-grid"></div>
+    </div>
+  </section>
+
+  <!-- SPACING -->
+  <section>
+    <h2>Icon → Label Spacing</h2>
+    <div class="card">
+      <div class="gap-row" id="gap-row"></div>
+    </div>
+  </section>
+
+  <!-- CONTEXT EXAMPLES -->
+  <section>
+    <h2>Usage in Context</h2>
+    <div class="card">
+      <div class="context-grid">
+        <div class="context-card">
+          <div class="ctx-label">Button (brand, md icon)</div>
+          <div class="btn-demo" id="btn-demo"></div>
+        </div>
+        <div class="context-card">
+          <div class="ctx-label">Nav item (brand, md icon)</div>
+          <div class="nav-demo" id="nav-demo"></div>
+        </div>
+        <div class="context-card">
+          <div class="ctx-label">Status tag (danger, xs icon)</div>
+          <div class="tag-demo" id="tag-demo"></div>
+        </div>
+        <div class="context-card">
+          <div class="ctx-label">Empty state (muted, xl icon)</div>
+          <div class="empty-demo" id="empty-demo">
+            <span></span>
+            <span>No results found</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    Rule of thumb: set colour only via <code>--icon-color-*</code>, size only via <code>--icon-size-*</code>. Never hardcode a hex value or pixel size directly on an icon.
+  </footer>
+
+<script>
+  // Generic star glyph — stand-in until the real registry (components-icons.md) is populated
+  function starPath(size, color) {
+    return `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <path d="M12 2.5l2.9 6.06 6.6.62-5 4.5 1.5 6.42L12 16.9l-5.9 3.2 1.5-6.42-5-4.5 6.6-.62L12 2.5z"
+        stroke="${color}" stroke-width="1.6" stroke-linejoin="round" fill="${color}" fill-opacity="0.12"/>
+    </svg>`;
+  }
+
+  const sizes = [
+    { label: "xs", token: "--icon-size-xs", px: 12, note: "inline / tag" },
+    { label: "sm", token: "--icon-size-sm", px: 16, note: "dense UI, inputs" },
+    { label: "md", token: "--icon-size-md", px: 20, note: "default — buttons, nav" },
+    { label: "lg", token: "--icon-size-lg", px: 24, note: "page headers" },
+    { label: "xl", token: "--icon-size-xl", px: 32, note: "hero / illustration" },
+  ];
+  document.getElementById("size-row").innerHTML = sizes.map(s => `
+    <div class="size-item">
+      <div class="swatch">${starPath(s.px, "#637087")}</div>
+      <div class="label">${s.label} · ${s.px}px</div>
+      <div class="token">${s.token}</div>
+    </div>
+  `).join("");
+
+  const colors = [
+    { name: "Default",  token: "--icon-color-default",  hex: "#637087", onDark: false },
+    { name: "Muted",     token: "--icon-color-muted",    hex: "#AEB6C2", onDark: false },
+    { name: "Brand",     token: "--icon-color-brand",    hex: "#0076E1", onDark: false },
+    { name: "Success",   token: "--icon-color-success",  hex: "#24A06C", onDark: false },
+    { name: "Warning",   token: "--icon-color-warning",  hex: "#F5CC00", onDark: false },
+    { name: "Danger",    token: "--icon-color-danger",   hex: "#F55826", onDark: false },
+    { name: "Disabled",  token: "--icon-color-disabled", hex: "#C8CDD5", onDark: false },
+    { name: "On dark",   token: "--icon-color-on-dark",  hex: "#FFFFFF", onDark: true },
+  ];
+  document.getElementById("color-grid").innerHTML = colors.map(c => `
+    <div class="color-cell ${c.onDark ? "on-dark" : ""}">
+      <div class="swatch-icon">${starPath(24, c.hex)}</div>
+      <div class="meta">
+        <div class="name">${c.name}</div>
+        <div class="token">${c.token}</div>
+      </div>
+      <div class="hex">${c.hex}</div>
+    </div>
+  `).join("");
+
+  const gaps = [
+    { label: "sm gap", token: "--icon-gap-sm", px: 4 },
+    { label: "md gap (default)", token: "--icon-gap-md", px: 8 },
+    { label: "lg gap", token: "--icon-gap-lg", px: 12 },
+  ];
+  document.getElementById("gap-row").innerHTML = gaps.map(g => `
+    <div class="gap-item">
+      <div class="gap-pill" style="gap:${g.px}px">
+        ${starPath(20, "#0076E1")}
+        <span>Label text</span>
+      </div>
+      <div class="token">${g.token} — ${g.px}px</div>
+    </div>
+  `).join("");
+
+  document.getElementById("btn-demo").innerHTML = starPath(20, "#fff") + "<span>Add to favourites</span>";
+  document.getElementById("nav-demo").innerHTML = starPath(20, "#0076E1") + "<span>Watchlist</span>";
+  document.getElementById("tag-demo").innerHTML = starPath(12, "#F55826") + "<span>Critical</span>";
+  document.querySelector("#empty-demo span:first-child").innerHTML = starPath(32, "#AEB6C2");
+</script>
+</body>
+</html>
